@@ -1,0 +1,14 @@
+---
+description: TypeScript and file-naming conventions for the weather app
+globs: weather-app/**/*.{ts,svelte.ts}
+alwaysApply: false
+---
+
+# TypeScript
+
+Follow the `clean-typescript` skill (`.cursor/skills/clean-typescript/SKILL.md`).
+
+- Strict mode, no `any` — use `unknown` + narrow or types in `src/lib/def/`
+- `import type` for type-only imports
+- `.server.ts` = server-only; `.svelte.ts` = runes; `.test.ts` = colocated Vitest
+- Types live in `src/lib/def/` — no logic there

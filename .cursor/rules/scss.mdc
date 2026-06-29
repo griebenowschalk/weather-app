@@ -1,0 +1,13 @@
+---
+description: SCSS and stylelint conventions
+globs: weather-app/**/*.{scss,svelte}
+alwaysApply: false
+---
+
+# SCSS
+
+- Use `@use` / `@forward` — never `@import`
+- Tokens: `@use '$scss/var/tokens' as *`
+- Mixins: `@use '$scss/var/mixins' as *` then `@include mixin-name`
+- Component styles stay in scoped `<style lang="scss">` blocks
+- Run `npm run lint:css` — no Prettier

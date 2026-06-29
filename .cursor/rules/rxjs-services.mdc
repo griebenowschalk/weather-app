@@ -1,0 +1,14 @@
+---
+description: RxJS service layer patterns
+globs: weather-app/src/lib/serv/**/*
+alwaysApply: false
+---
+
+# RxJS Services
+
+Follow `rxjs-patterns` (`.cursor/skills/rxjs-patterns/SKILL.md`).
+
+- HTTP via `get$`/`getAnon$` in `core/http.ts` — never raw `fetch`
+- Return `Observable<T>`, not `Promise<T>`
+- `take(1)` for one-shot; `shareReplay(1)` for shared streams; `switchMap` to cancel stale requests
+- Status: `'initial' | 'loading' | 'success' | 'error'` + `error: unknown`

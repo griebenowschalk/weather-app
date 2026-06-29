@@ -1,0 +1,26 @@
+---
+description: Core weather-app architecture, commands, and hard rules
+alwaysApply: true
+---
+
+# Weather App
+
+App lives in `weather-app/`. Run npm commands from there. Read `AGENTS.md` for full context.
+
+## Layout
+- `src/lib/def/` — types only
+- `src/lib/serv/` — RxJS services (`Observable<T>`, `get$`/`getAnon$`)
+- `src/lib/state/` — Rune classes (`.svelte.ts`)
+- `src/lib/ui/` — components
+- `src/scss/` — Sass modules (`@use`, not `@import`)
+
+## SSR
+SvelteKit SSR via `adapter-node`. Server renders HTML first; client hydrates. `.server.ts` files and `$env/static/private` are server-only. Guard browser APIs with `browser` from `$app/environment`.
+
+## Before finishing
+- `npm run lint` and `npm run lint:css` must pass
+- No `any`, no Svelte stores, no raw `fetch` in services
+- RxJS subscriptions in `$effect` must return cleanup
+
+## Skills
+See `.cursor/skills/` for detailed conventions (mirrors `.claude/skills/`).

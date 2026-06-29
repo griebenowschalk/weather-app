@@ -1,0 +1,42 @@
+@use 'var/tokens' as *;
+@use 'var/mixins' as *;
+
+// Light theme (default)
+:root {
+  --color-text: #{$neutral-900};
+  --color-text-soft: #{$neutral-600};
+  --color-bg: #ffffff;
+  --color-bg-soft: #{$neutral-100};
+  --color-border: #{$neutral-300};
+  --color-primary: #{$color-primary};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-danger: #{$color-danger};
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+}
+
+// Dark theme — applied via [data-theme="dark"] on <html> (set by ThemeState in Step 10)
+:root[data-theme='dark'] {
+  --color-text: #ffffff;
+  --color-text-soft: #{$neutral-300};
+  --color-bg: #1a1a1a;
+  --color-bg-soft: #2d2d2d;
+  --color-border: #{$neutral-600};
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: $font-base;
+  font-size: $font-size-base;
+  color: var(--color-text);
+  background: var(--color-bg);
+  transition: background $transition-fast, color $transition-fast;
+}
+
+button, input {
+  font: inherit;
+  @include focus-visible;
+}
+
+.sr-only { @include sr-only; }

@@ -1,0 +1,14 @@
+---
+description: Security rules for server routes and user input
+globs: weather-app/**/*.{server.ts,server.js}
+alwaysApply: false
+---
+
+# Security
+
+Follow `web-security` (`.cursor/skills/web-security/SKILL.md`).
+
+- Validate all external input at server boundaries
+- Secrets in `$env/static/private` only — never client imports
+- No `{@html}` with unsanitised content
+- `.env` gitignored; document keys in `.env.example`

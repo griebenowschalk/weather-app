@@ -1,0 +1,14 @@
+---
+description: Test structure for Vitest and Playwright
+globs: weather-app/**/*.{test.ts,spec.ts,e2e.ts}
+alwaysApply: false
+---
+
+# Tests
+
+Follow `testing-conventions` (`.cursor/skills/testing-conventions/SKILL.md`).
+
+- Colocate `.test.ts` in `src/lib/` — no `__tests__/` folders
+- Fixtures in `src/_mock/`; mock services with `vi.mock('$lib/serv/...')`
+- E2E in `e2e/` with POM classes in `e2e/_pom/`
+- No `.only` in committed tests

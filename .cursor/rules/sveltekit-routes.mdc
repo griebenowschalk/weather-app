@@ -1,0 +1,14 @@
+---
+description: SvelteKit routing, SSR, and state patterns
+globs: weather-app/src/routes/**/*
+alwaysApply: false
+---
+
+# SvelteKit Routes
+
+Follow `sveltekit-best-practices` (`.cursor/skills/sveltekit-best-practices/SKILL.md`).
+
+- `+page.server.ts` for server-only load (secrets); `+page.ts` for shared load
+- Throw `error()` / `redirect()` from `@sveltejs/kit`
+- Feature state in Rune classes (`src/lib/state/`), not in components
+- URL is source of truth for navigation state (`?city=`)
