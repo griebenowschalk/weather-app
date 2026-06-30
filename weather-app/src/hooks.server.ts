@@ -1,0 +1,10 @@
+import type { Handle } from "@sveltejs/kit";
+
+export const handle: Handle = async ({ event, resolve }) => {
+  const response = await resolve(event);
+  // A minimal set of the headers work sets centrally in hooks.server.ts.
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("X-Frame-Options", "SAMEORIGIN");
+  return response;
+};
