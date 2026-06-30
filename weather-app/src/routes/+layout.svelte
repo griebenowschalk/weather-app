@@ -2,15 +2,19 @@
   import "$scss/main.scss";
   import { resolve } from "$app/paths";
   import { ThemeState } from "$lib/state/theme/theme-state.svelte";
+  import GlobalLoader from "$lib/ui/shared/GlobalLoader.svelte";
+  import Toaster from "$lib/ui/shared/Toaster.svelte";
 
   let { children } = $props();
   const theme = new ThemeState();
 </script>
 
+<GlobalLoader />
+
 <header class="navbar">
-  <a href={resolve("/")} class="navbar__logo">⛅ Weather</a>
+  <a href={resolve("/")} class="navbar-logo">⛅ Weather</a>
   <button
-    class="navbar__toggle"
+    class="navbar-toggle"
     onclick={() => theme.toggle()}
     aria-label="Toggle dark mode"
   >
@@ -21,6 +25,8 @@
 <main class="main">
   {@render children()}
 </main>
+
+<Toaster />
 
 <style lang="scss">
   @use "$scss/var/tokens" as *;
@@ -37,15 +43,15 @@
     z-index: $z-sticky;
   }
 
-  .navbar__logo {
+  .navbar-logo {
     color: #fff;
     text-decoration: none;
     font-weight: $weight-bold;
   }
 
-  .navbar__toggle {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+  .navbar-toggle {
+    background: rgb(255 255 255 / 20%);
+    border: 1px solid rgb(255 255 255 / 30%);
     color: #fff;
     padding: $space-sm;
     border-radius: $radius-md;

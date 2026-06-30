@@ -1,8 +1,8 @@
 <script lang="ts">
   import CitySelector from "$lib/ui/weather/CitySelector.svelte";
+  import WeatherCard from "$lib/ui/weather/WeatherCard.svelte";
   let { data } = $props();
 </script>
 
 <CitySelector />
-<h1>{data.initial.location.name}</h1>
-<p>{data.initial.current.condition.text} — {data.initial.current.temp_c}°C</p>
+<WeatherCard weather={data.initial} />
