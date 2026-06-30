@@ -55,5 +55,11 @@
   .main {
     min-height: calc(100vh - 64px);
     background: var(--color-bg-soft);
+    padding: $space-md $space-lg;
+    gap: $space-md;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 </style>
