@@ -1,6 +1,11 @@
-import type { Weather } from '$lib/def/weather';
-import { BehaviorSubject, shareReplay, switchMap, type Observable } from 'rxjs';
-import { get$ } from './core/http';
+import type { Weather } from "$lib/def/weather";
+import {
+  BehaviorSubject,
+  shareReplay,
+  switchMap,
+  type Observable,
+} from "rxjs";
+import { get$ } from "./core/http";
 
 // One-shot fetch for a single city.
 export function fetchWeather$(city: string): Observable<Weather> {
@@ -9,7 +14,7 @@ export function fetchWeather$(city: string): Observable<Weather> {
 }
 
 // --- Selected-city stream ---
-const selectedCity$ = new BehaviorSubject<string>('Cape Town');
+const selectedCity$ = new BehaviorSubject<string>("Cape Town");
 
 export function setCity(city: string): void {
   selectedCity$.next(city);
