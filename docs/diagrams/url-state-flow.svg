@@ -1,0 +1,110 @@
+<svg viewBox="0 0 700 850" width="100%" height="auto" preserveAspectRatio="xMidYMid meet" style="max-width:700px;height:auto;display:block;margin:0 auto" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ttl dsc" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif">
+  <title id="ttl">How state updates when the URL changes (weather-app)</title>
+  <desc id="dsc">Clicking a city link changes the URL; SvelteKit page state, RxJS observables and Svelte rune state update in a one-way flow ending in a UI re-render. Each box names the source file. Paths are relative to src/.</desc>
+  <style>
+    .surface{fill:#ffffff;stroke-width:2}
+    .label{fill:#0f172a;font-weight:600;font-size:13px}
+    .file{fill:#64748b;font-size:9.5px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    .tag{font-size:9.5px;font-weight:700;letter-spacing:.03em}
+    .arrow{stroke:#94a3b8;stroke-width:2;fill:none}
+    .legtxt{fill:#475569;font-size:11px}
+    .cap{fill:#64748b;font-size:10.5px}
+    .cat-store{stroke:#7c3aed} .t-store{fill:#7c3aed}
+    .cat-obs{stroke:#0d9488}  .t-obs{fill:#0d9488}
+    .cat-state{stroke:#2563eb} .t-state{fill:#2563eb}
+    .cat-ui{stroke:#64748b}   .t-ui{fill:#64748b}
+    @media (prefers-color-scheme: dark){
+      .surface{fill:#1e293b}
+      .label{fill:#f1f5f9}
+      .file{fill:#94a3b8}
+      .arrow{stroke:#64748b}
+      .legtxt,.cap{fill:#cbd5e1}
+    }
+  </style>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- main column: x=28 w=404, cx=230 -->
+
+  <!-- 1 USER ACTION -->
+  <rect class="surface cat-ui" x="28" y="24" width="404" height="64" rx="10"/>
+  <text class="tag t-ui" x="44" y="44">USER ACTION</text>
+  <text class="label" x="44" y="63">Click  &lt;a href="?city=Tokyo"&gt;</text>
+  <text class="file" x="44" y="80">lib/ui/weather/CitySelector.svelte</text>
+
+  <!-- 2 SVELTEKIT STATE page.url -->
+  <rect class="surface cat-store" x="28" y="116" width="404" height="64" rx="10"/>
+  <text class="tag t-store" x="44" y="136">SVELTEKIT STATE</text>
+  <text class="label" x="44" y="155">page.url  (reactive)</text>
+  <text class="file" x="44" y="172">$app/state  ·  SvelteKit built-in</text>
+
+  <!-- side: $derived active link -->
+  <rect class="surface cat-state" x="452" y="116" width="220" height="64" rx="10"/>
+  <text class="tag t-state" x="468" y="136">RUNE  $derived</text>
+  <text class="label" x="468" y="155">selected → active link</text>
+  <text class="file" x="468" y="172">…/CitySelector.svelte</text>
+
+  <!-- 3 $effect setCity -->
+  <rect class="surface cat-state" x="28" y="208" width="404" height="64" rx="10"/>
+  <text class="tag t-state" x="44" y="228">RUNE  $effect   (URL → stream)</text>
+  <text class="label" x="44" y="247">reads page.url → setCity()</text>
+  <text class="file" x="44" y="264">lib/state/weather/weather-dashboard-state.svelte.ts</text>
+
+  <!-- 4 BehaviorSubject -->
+  <rect class="surface cat-obs" x="28" y="300" width="404" height="64" rx="10"/>
+  <text class="tag t-obs" x="44" y="320">RxJS  BehaviorSubject</text>
+  <text class="label" x="44" y="339">selectedCity$.next('Tokyo')</text>
+  <text class="file" x="44" y="356">lib/serv/weather.ts</text>
+
+  <!-- 5 switchMap pipeline -->
+  <rect class="surface cat-obs" x="28" y="392" width="404" height="64" rx="10"/>
+  <text class="tag t-obs" x="44" y="412">RxJS  switchMap → fetch</text>
+  <text class="label" x="44" y="431">get$ → /api/weather</text>
+  <text class="file" x="44" y="448">serv/weather.ts → core/http.ts → api/weather/+server.ts</text>
+
+  <!-- 6 currentWeather$ -->
+  <rect class="surface cat-obs" x="28" y="484" width="404" height="64" rx="10"/>
+  <text class="tag t-obs" x="44" y="504">RxJS  shareReplay(1)</text>
+  <text class="label" x="44" y="523">currentWeather$</text>
+  <text class="file" x="44" y="540">lib/serv/weather.ts</text>
+
+  <!-- 7 $effect -> $state -->
+  <rect class="surface cat-state" x="28" y="576" width="404" height="64" rx="10"/>
+  <text class="tag t-state" x="44" y="596">RUNE  $effect + $state   (stream → state)</text>
+  <text class="label" x="44" y="615">subscribe → weather, status</text>
+  <text class="file" x="44" y="632">lib/state/weather/weather-dashboard-state.svelte.ts</text>
+
+  <!-- 8 UI -->
+  <rect class="surface cat-ui" x="28" y="668" width="404" height="64" rx="10"/>
+  <text class="tag t-ui" x="44" y="688">COMPONENT   (reads $state)</text>
+  <text class="label" x="44" y="707">WeatherCard re-renders</text>
+  <text class="file" x="44" y="724">lib/ui/weather/WeatherCard.svelte</text>
+
+  <!-- vertical arrows (cx=230) -->
+  <line class="arrow" x1="230" y1="88"  x2="230" y2="114" marker-end="url(#ah)"/>
+  <line class="arrow" x1="230" y1="180" x2="230" y2="206" marker-end="url(#ah)"/>
+  <line class="arrow" x1="230" y1="272" x2="230" y2="298" marker-end="url(#ah)"/>
+  <line class="arrow" x1="230" y1="364" x2="230" y2="390" marker-end="url(#ah)"/>
+  <line class="arrow" x1="230" y1="456" x2="230" y2="482" marker-end="url(#ah)"/>
+  <line class="arrow" x1="230" y1="548" x2="230" y2="574" marker-end="url(#ah)"/>
+  <line class="arrow" x1="230" y1="640" x2="230" y2="666" marker-end="url(#ah)"/>
+  <!-- side branch from page.url -->
+  <line class="arrow" x1="432" y1="148" x2="450" y2="148" marker-end="url(#ah)"/>
+
+  <!-- legend -->
+  <g transform="translate(28,756)">
+    <rect x="0" y="0" width="13" height="13" rx="3" class="surface cat-store"/>
+    <text class="legtxt" x="19" y="10">SvelteKit state (store-like)</text>
+    <rect x="0" y="22" width="13" height="13" rx="3" class="surface cat-obs"/>
+    <text class="legtxt" x="19" y="32">RxJS observable</text>
+    <rect x="240" y="0" width="13" height="13" rx="3" class="surface cat-state"/>
+    <text class="legtxt" x="259" y="10">Svelte rune state</text>
+    <rect x="240" y="22" width="13" height="13" rx="3" class="surface cat-ui"/>
+    <text class="legtxt" x="259" y="32">UI / user action</text>
+  </g>
+
+  <text class="cap" x="28" y="828">One-way flow — the URL is the only place the city is stored; pick another city and it repeats. Paths under src/.</text>
+</svg>
