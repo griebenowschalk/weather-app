@@ -23,3 +23,6 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 # Playwright
 test-results
+
+# VS Code / Cursor — personal overrides (shared settings live in settings.json)
+.vscode/settings.local.json
